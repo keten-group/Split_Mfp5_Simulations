@@ -1,0 +1,2 @@
+/var/spool/slurmd/job2459705/slurm_script: line 15: syntax error near unexpected token `)'
+/var/spool/slurmd/job2459705/slurm_script: line 15: `) #\'

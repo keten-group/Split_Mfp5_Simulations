@@ -1,0 +1,11 @@
+#!/bin/bash
+
+module load python/anaconda3.6
+
+project='ionized'
+
+cp ${project}.pdb ${project}_noTER.pdb
+python addTER.py -i ${project}_noTER.pdb -o ${project}_c2l.pdb
+cp ${project}.psf ${project}_c2l.psf
+
+perl charmm2lammps.pl -cmap=36 all36_prot_C2L_TIP3_OH ${project}_c2l

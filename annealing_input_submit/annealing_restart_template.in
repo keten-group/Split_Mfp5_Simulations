@@ -1,0 +1,165 @@
+# Jacob Graham
+# Minimization, followed by equilibration and MD annealing procedures.
+
+#- Variables -------------------------------------------------------------#
+variable        temperature equal 300.0
+
+#- Setup -----------------------------------------------------------------#
+units           real
+neigh_modify    every 1 delay 0 check yes
+boundary		p p p
+
+atom_style      full
+bond_style      harmonic
+angle_style     charmm
+dihedral_style  charmm
+improper_style  harmonic
+pair_style      lj/charmm/coul/long 8 12
+pair_modify     mix arithmetic
+kspace_style    ewald 1e-6
+special_bonds   charmm
+
+#- Indicate Desired CMAP File --------------------------------------------#
+
+fix             cmap all cmap charmm36.cmap
+fix_modify      cmap energy yes
+read_data       ionized.data fix cmap crossterm CMAP
+
+#- Define groups ---------------------------------------------------------#
+
+group 			water type <HT_type> <OT_type>
+
+#- Minimization ----------------------------------------------------------#
+
+thermo 50
+thermo_style 	custom etotal ke temp pe ebond eangle density vol fmax fnorm
+minimize 		1.0e-6 0.0 10000 2000
+write_restart 	minimized.restart
+write_data 		minimized.data
+
+#- MD Steps --------------------------------------------------------------#
+
+reset_timestep  0
+timestep        1 # 1 femtosecond each step
+
+#- Thermodynamic Output --------------------------------------------------#
+
+thermo 			1000
+thermo_style 	custom step vol temp press density etotal pe ke lx ly lz evdwl ebond epair eangle
+
+#- SHAKE Algorithm -------------------------------------------------------#
+
+fix             2 water shake 1e-6 500 0 b <OH_shake_bondtype> <HH_shake_bondtype> #ID group-ID style tolerance maxiters print every N constraints keywords. Bond type (b) is HT OT.
+
+#- Processor Balance -----------------------------------------------------#
+
+comm_style 		tiled
+fix 			4 all balance 1000 1.05 rcb
+
+#- Initialize Velocities -------------------------------------------------#
+velocity        all create ${temperature} 2593541 dist gaussian loop local #group-ID style
+
+#- Annealing Steps -------------------------------------------------------#
+
+variable 		Tlow equal 300
+variable 		Thigh equal 1000
+variable 		Plow equal 1
+variable 		Phigh equal 1000
+
+variable 		d equal "density"
+
+# Constant T low P low
+
+fix 			d_1 all print 100 "${d}" file density_1.txt
+variable 		outname string 1_T${Tlow}_P${Plow}
+fix 			1 all npt temp ${Tlow} ${Tlow} 100 iso ${Plow} ${Plow} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			2000000
+write_data		${outname}.data
+unfix 			1
+unfix           d_1
+undump 			1
+undump 			2
+
+# Pressure Up
+
+variable 		outname string 2_T${Tlow}_P${Plow}to${Phigh}
+fix 			1 all npt temp ${Tlow} ${Tlow} 100 aniso ${Plow} ${Phigh} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			500000
+write_data		${outname}.data
+unfix 			1
+undump 			1
+undump 			2
+
+# Temperature Up
+
+variable 		outname string 3_T${Tlow}to${Thigh}_P${Phigh}
+fix 			1 all npt temp ${Tlow} ${Thigh} 100 aniso ${Phigh} ${Phigh} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			500000
+write_data		${outname}.data
+unfix 			1
+undump 			1
+undump 			2
+
+# Constant T high P high
+
+variable 		outname string 4_T${Thigh}_P${Phigh}
+fix 			1 all npt temp ${Thigh} ${Thigh} 100 iso ${Phigh} ${Phigh} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			1000000
+write_data		${outname}.data
+unfix 			1
+undump 			1
+undump 			2
+
+# Temperature Down
+
+variable 		outname string 5_T${Thigh}to${Tlow}_P${Phigh}
+fix 			1 all npt temp ${Thigh} ${Tlow} 100 aniso ${Phigh} ${Phigh} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			1000000
+write_data		${outname}.data
+unfix 			1
+undump 			1
+undump 			2
+
+# Pressure Down
+
+variable 		outname string 6_T${Tlow}_P${Phigh}to${Plow}
+fix 			1 all npt temp ${Tlow} ${Tlow} 100 aniso ${Phigh} ${Plow} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			1000000
+write_data		${outname}.data
+unfix 			1
+undump 			1
+undump 			2
+
+# Constant T low P low
+
+fix 			d_7 all print 100 "${d}" file density_7.txt
+reset_timestep  0
+variable 		outname string 7_T${Tlow}_P${Plow}
+fix 			1 all npt temp ${Tlow} ${Tlow} 100 iso ${Plow} ${Plow} 1000
+dump 			1 all dcd 1000 ${outname}.dcd
+dump 			2 all dcd 1000 ${outname}_unwrap.dcd
+dump_modify 	2 unwrap yes
+run 			5000000
+write_data		${outname}.data
+unfix 			1
+unfix 			d_7
+undump 			1
+undump 			2

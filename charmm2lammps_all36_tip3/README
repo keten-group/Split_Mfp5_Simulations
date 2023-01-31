@@ -1,0 +1,1 @@
+Parameter and topology files in this folder have been modified to include HT and OT atom types to account for tip3 water molecules. HT OT bond coefficients, HT OT HT angle coefficients, and LJ non bonded parameters have been added.
