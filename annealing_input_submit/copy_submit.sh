@@ -8,16 +8,17 @@
 #SBATCH --ntasks-per-node=1  ## number of cores
 #SBATCH -t 00:10:00
 
-## cd $PBS_O_WORKDIR
-declare -a sims=('Nfp5-Cfp5_n12'\
-				 'Nfp5_n12' \
-				 'Cfp5_n12' \
-				 'Cfp5YtoS_n12'\
-				 'Nfp5YtoS_n12'\
-				 'Cfp5KRtoSS_n12'\
-				 'Nfp5-Cfp5YtoS_n12'\
-				 'Nfp5-Cfp5KRtoSS_n12'\
-				 'Nfp5KRtoSS_n12'\
+# This script copies a bash script that can be used to submit each simulation to queue.
+
+declare -a sims=('Nfp5-Cfp5_n24'\
+				 'Nfp5_n24' \
+				 'Cfp5_n24' \
+				 'Cfp5YtoS_n24'\
+				 'Nfp5YtoS_n24'\
+				 'Cfp5KRtoSS_n24'\
+				 'Nfp5-Cfp5YtoS_n24'\
+				 'Nfp5-Cfp5KRtoSS_n24'\
+				 'Nfp5KRtoSS_n24'\
 				 'fp5_n12')
 
 declare -a job_name=('n-c'\
@@ -33,9 +34,9 @@ declare -a job_name=('n-c'\
 
 for (( i=0; i<${#sims[@] - 1}; i++ ))
 do
-	sed 's$<job_name>$'"${job_name[$i]}"'$g' < submitLAMMPSannealing_template.sh > submitLAMMPSannealing.sh
+	sed 's$<job_name>$'"${job_name[$i]}"'$g' < submit_annealing_template.sh > submit_annealing.sh
 
-	mv submitLAMMPSannealing.sh ../${sims[$i]}/annealing
+	mv submit_annealing.sh ../${sims[$i]}/annealing
 done
 
 

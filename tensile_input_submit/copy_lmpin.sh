@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="copy_lmp.in"
+#SBATCH --job-name="copy tensile input"
 #SBATCH -A p31412
 #SBATCH -p short    ## partition
 #SBATCH -N 1  ## number of nodes
@@ -8,17 +8,17 @@
 #SBATCH --ntasks-per-node=1  ## number of cores
 #SBATCH -t 00:10:00
 
-## cd $PBS_O_WORKDIR
-declare -a sims=('Nfp5-Cfp5_n12'\
-				 'Nfp5_n12' \
-				 'Cfp5_n12' \
-				 'Cfp5YtoS_n12'\
-				 'Nfp5YtoS_n12'\
-				 'Cfp5KRtoSS_n12'\
-				 'Nfp5-Cfp5YtoS_n12'\
-				 'Nfp5-Cfp5KRtoSS_n12'\
-				 'fp5_n12'\
-				 'Nfp5KRtoSS_n12')
+# This script adds the proper oxygen and hydrogen atom types to lammps input file to run fix shake.
+declare -a sims=('Nfp5-Cfp5_n24'\
+				 'Nfp5_n24' \
+				 'Cfp5_n24' \
+				 'Cfp5YtoS_n24'\
+				 'Nfp5YtoS_n24'\
+				 'Cfp5KRtoSS_n24'\
+				 'Nfp5-Cfp5YtoS_n24'\
+				 'Nfp5-Cfp5KRtoSS_n24'\
+				 'Nfp5KRtoSS_n24'\
+				 'fp5_n12')
 
 declare -a HT_type=(33 \
 					32 \
@@ -28,8 +28,8 @@ declare -a HT_type=(33 \
 					27 \
 					31 \
 					32 \
-					33 \
-					32)
+					32 \
+					33)
 
 declare -a OT_type=(34 \
 					33 \
@@ -39,30 +39,30 @@ declare -a OT_type=(34 \
 					28 \
 					32 \
 					33 \
-					34 \
-					33)
+					33 \
+					34)
 
 declare -a HH_shake_bondtype=(58 \
-						   55 \
+						   54 \
 						   43 \
 						   39 \
-						   51 \
+						   50 \
 						   38 \
 						   54 \
 						   53 \
-						   58 \
-						   53)
+						   52 \
+						   58)
 
 declare -a OH_shake_bondtype=(59 \
-						   56 \
+						   55 \
 						   44 \
 						   40 \
-						   52 \
+						   51 \
 						   39 \
 						   55 \
 						   54 \
-						   59 \
-						   54)
+						   53 \
+						   59)
 
 for (( i=0; i<${#sims[@] - 1}; i++ ))
 do
@@ -77,7 +77,6 @@ do
 
 	rm tensile_test_temp1.in tensile_test_temp2.in tensile_test_temp3.in
 	mv tensile_test.in $tensile_test
-	echo $i
 	annealing_out=../${sims[$i]}/annealing_out
 	[ -d "$annealing_out" ] && cp ${annealing_out}/7_T300_P1.data $tensile_test
 

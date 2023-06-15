@@ -1,6 +1,6 @@
 package require psfgen
 resetpsf
-topology charmm2lammps_all36_tip3/top_all36_prot_C2L_TIP3_OH_CLA.rtf
+topology charmm2lammps_all36_tip3/top_all36_prot_C2L_TIP3_OH_CLA_SOD.rtf
 topology charmm2lammps_all36_tip3/toppar_water_ions_namd.str
 
 alias residue HIS HSE
@@ -42,3 +42,4 @@ animate write pqr ionized.pqr
 # animate write pqr <psfgen_out>.pqr
 mol delete all
 resetpsf
+exit

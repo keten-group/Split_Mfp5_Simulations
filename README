@@ -1,0 +1,19 @@
+#########################################################
+Instructions to generate and run simulations presented in J. Graham and S. Keten "Increase in charge and density improves strength and toughness of mfp5 inspired protein materials" ACS Biomaterials Science and Engineering 2023
+
+If you use this tool, please cite the above paper.
+#########################################################
+
+Employed Software Version Histories:
+
+LAMMPS version used is from March 3, 2020 downloadable here: https://download.lammps.org/tars/index.html
+
+Packmol version 20.1.1 was used. Download and instructions for Packmol can be found here: https://m3g.github.io/packmol/
+
+Conda version 4.10.3
+
+
+Instructions:
+
+
+

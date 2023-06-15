@@ -8,17 +8,18 @@
 #SBATCH --ntasks-per-node=28  ## number of cores
 #SBATCH -t 00:10:00
 
-## cd $PBS_O_WORKDIR
+# This script submits a lammps simulation and organizes the output files into directory ../annealing_out.
+
 module purge all
-module load lammps/20200303-openmpi-4.0.5-intel-19.0.5.281
+module load lammps/20200303-openmpi-4.0.5-intel-19.0.5.281 # Change this.
 
 dir=../annealing_out
 struc_name=ionized
 if [ ! -d "$dir" ];then
-	mpirun -np 28 lmp -in annealing_restart.in -log network.log
+	mpirun -np 28 lmp -in annealing.in -log network.log
 	mkdir $dir
 	mv *density* minimized* network.log *_T* $dir
-	cp $struc_name* annealing_restart.in submitLAMMPSannealing.sh $dir
+	cp $struc_name* annealing.in submit_annealing.sh $dir
 	mv R-*.out ./$dir
 else
 	echo "Directory ${dir} already exists."

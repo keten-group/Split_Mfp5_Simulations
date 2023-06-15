@@ -82,7 +82,12 @@ MASS    81 S     32.06000 ! sulphur
 MASS    82 SM    32.06000 ! sulfur C-S-S-C type
 MASS    83 SS    32.06000 ! thiolate sulfur
 MASS    84 HT     1.00800 ! tip3p hydrogen
-MASS    85 OT	 15.99940 ! tip3p oxygen
+MASS    85 OT	15.99940 ! tip3p oxygen
+MASS    86 HX     1.00800 ! hydroxide hydrogen
+MASS    87 OX    15.99940 ! hydroxide oxygen
+MASS	88 CLA 	 35.45000 ! chloride ion
+MASS 	89 SOD 	 22.98977 ! sodium ion
+
 
 DECL -CA  
 DECL -C  
@@ -93,6 +98,16 @@ DECL +CA
 DEFA FIRS NTER LAST CTER   
 AUTO ANGLES DIHE PATCH
 
+!hydroxide ion
+RESI OH       -1.00 ! hydroxide ion by adm.jr.
+GROUP
+ATOM O1 OX    -1.32
+ATOM H1 HX     0.32
+BOND O1 H1
+DONOR H1 O1
+ACCEPTOR O1
+
+!hydroxide ion
 !tip3
 
 RESI TIP3         0.000 ! tip3p water model, generate using noangle nodihedral
@@ -120,6 +135,20 @@ ACCEPTOR OH2
 PATCHING FIRS NONE LAST NONE
 
 !tip3
+
+!chloride ion start
+RESI CLA      -1.00 ! Chloride Ion
+GROUP
+ATOM CLA  CLA -1.00
+PATCHING FIRST NONE LAST NONE
+!chloride ion end
+
+!sodium ion start
+RESI SOD       1.00 ! Sodium Ion
+GROUP
+ATOM SOD  SOD  1.00
+PATCHING FIRST NONE LAST NONE
+!sodium ion end
 
 RESI ALA          0.00
 GROUP   

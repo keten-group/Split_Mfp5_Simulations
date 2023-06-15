@@ -1,0 +1,5 @@
+name: fga_mfp
+channels:
+  - conda-forge
+  - defaults
+prefix: /home/jjg9482/anaconda3/envs/fga_mfp

@@ -18,7 +18,7 @@ with open(pdb_in) as pdbfile:
         i += 1
         index = 1
         index_blank = "     "
-        if lines[i][:4] == 'ATOM' and lines[i][13:16] != 'CLA':
+        if lines[i][:4] == 'ATOM' and (lines[i][13:16] != 'CLA' and lines[i][13:16] != 'SOD'):
             numchains += 1
             out_name = "melt_chain" + str(numchains) + ".pdb"
             pdb_out = open(out_name, "wt") # open new pdb file to be written to
@@ -58,7 +58,27 @@ with open(pdb_in) as pdbfile:
                 new_line = lines[i][:6] + index_blank[:5-index_len] + index_str + lines[i][11:72] + segid + lines[i][76-(4-segid_len):]
                 pdb_out.write(new_line)
             pdb_out.write("END")
-            pdb_out.close()                 
+            pdb_out.close()
+        elif lines[i][:4] == 'ATOM' and lines[i][13:16] == 'SOD':
+            out_name = "melt_ions" + ".pdb"
+            pdb_out = open(out_name, "wt") # open new pdb file to write water pdb file
+            index_str = str(index)
+            index_len = len(index_str)
+            segid = "I"
+            segid_len = len(segid)
+            # stitch together line as string with incremented index
+            new_line = lines[i][:6] + index_blank[:5-index_len] + index_str + lines[i][11:72] + segid + lines[i][76-(4-segid_len):]
+            pdb_out.write(new_line)
+#             while lines[i+1][21] == lines[i][21]:
+            while lines[i+1][:3] != 'END' and lines[i+1][21] == lines[i][21]:
+                i += 1
+                index += 1
+                index_str = str(index)
+                index_len = len(index_str)
+                new_line = lines[i][:6] + index_blank[:5-index_len] + index_str + lines[i][11:72] + segid + lines[i][76-(4-segid_len):]
+                pdb_out.write(new_line)
+            pdb_out.write("END")
+            pdb_out.close()                  
         elif lines[i][:6] == 'HETATM':
             out_name = "melt_water" + ".pdb"
             pdb_out = open(out_name, "wt") # open new pdb file to write water pdb file
