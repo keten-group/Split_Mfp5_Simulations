@@ -59,8 +59,7 @@ fix 			def1 all print 10 "${p1} ${p2} ${p3} ${p4}" file stress_strain.txt screen
 dump			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 10
-#run             10000000 # 10.0 ns
+run             10000000 # 10.0 ns
 
 write_data	    ${outname}_end.data
 write_data		${outname}_10ns.restart

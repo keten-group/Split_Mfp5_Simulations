@@ -33,8 +33,7 @@ group 			water type <HT_type> <OT_type> # This group must contain only atom type
 
 thermo 50
 thermo_style 	custom etotal ke temp pe ebond eangle density vol fmax fnorm
-minimize 		1.0e-6 0.0 100 100
-#minimize 		1.0e-6 0.0 10000 2000
+minimize 		1.0e-6 0.0 10000 2000
 write_restart 	minimized.restart
 write_data 		minimized.data
 
@@ -77,8 +76,7 @@ fix 			1 all npt temp ${Tlow} ${Tlow} 100 iso ${Plow} ${Plow} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			2000000
+run 			2000000
 write_data		${outname}.data
 unfix 			1
 unfix           d_1
@@ -92,8 +90,7 @@ fix 			1 all npt temp ${Tlow} ${Tlow} 100 aniso ${Plow} ${Phigh} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			500000
+run 			500000
 write_data		${outname}.data
 unfix 			1
 undump 			1
@@ -106,8 +103,7 @@ fix 			1 all npt temp ${Tlow} ${Thigh} 100 aniso ${Phigh} ${Phigh} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			500000
+run 			500000
 write_data		${outname}.data
 unfix 			1
 undump 			1
@@ -120,8 +116,7 @@ fix 			1 all npt temp ${Thigh} ${Thigh} 100 iso ${Phigh} ${Phigh} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			1000000
+run 			1000000
 write_data		${outname}.data
 unfix 			1
 undump 			1
@@ -134,8 +129,7 @@ fix 			1 all npt temp ${Thigh} ${Tlow} 100 aniso ${Phigh} ${Phigh} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			1000000
+run 			1000000
 write_data		${outname}.data
 unfix 			1
 undump 			1
@@ -148,8 +142,7 @@ fix 			1 all npt temp ${Tlow} ${Tlow} 100 aniso ${Phigh} ${Plow} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			1000000
+run 			1000000
 write_data		${outname}.data
 unfix 			1
 undump 			1
@@ -164,8 +157,7 @@ fix 			1 all npt temp ${Tlow} ${Tlow} 100 iso ${Plow} ${Plow} 1000
 dump 			1 all dcd 1000 ${outname}.dcd
 dump 			2 all dcd 1000 ${outname}_unwrap.dcd
 dump_modify 	2 unwrap yes
-run 1
-#run 			5000000
+run 			5000000
 write_data		${outname}.data
 unfix 			1
 unfix 			d_7
