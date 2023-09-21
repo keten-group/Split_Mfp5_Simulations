@@ -1,4 +1,4 @@
-#########################################################
+# Split Mfp5 Simulations
 Instructions to generate and run simulations presented in J. Graham and S. Keten "Increase in charge and density improves strength and toughness of mfp5 inspired protein materials" ACS Biomaterials Science and Engineering 2023
 
 If you use this tool, please cite the above paper.
