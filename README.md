@@ -1,3 +1,13 @@
+<!-- For developers:
+Please use bold font for file names, directories, and file paths.
+Please use italic font for variables.
+Follow heading styles.
+# First-level heading
+## Second-level heading
+### Third-level heading
+See https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax for formatting syntax.
+-->
+
 # Split Mfp5 Simulations
 Instructions to generate and run simulations presented in J. Graham and S. Keten "Increase in charge and density improves strength and toughness of mfp5 inspired protein materials" ACS Biomaterials Science and Engineering 2023
 
