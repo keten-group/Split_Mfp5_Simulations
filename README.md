@@ -35,8 +35,6 @@ If you use this tool, please cite the above paper.
 
 ### In main directory Split_Mfp5_Simulations
 
-- **addsegID.py** - Adds a particular segment ID and chain ID to an existing pdb of a single chain. This is necessary to use the VMD psfgen plugin.
-
 - **chloride.pdb** - PDB file for a chloride ion with arbitrary coordinates assigned.
 
 - **fga_fp5.yml** - Conda .yml file, which can be used to create an environment compatible with scripts written for this project.
@@ -47,7 +45,7 @@ If you use this tool, please cite the above paper.
 
 - **sodium.pdb** - PDB file for a sodium ion with arbitrary coordinates assigned.
 
-- **splitpdbforpsfgen-addsegID.py** - Splits the pdb file entitled 'chains_packed.pdb' into pdb files of each individual chain and water/ions. Output files are **melt_ions.pdb**, **melt_water.pdb**, and **melt_chain{1...numchains}.pdb**
+- **splitpdbforpsfgen-addsegID.py** - Splits the pdb file entitled 'chains_packed.pdb' into pdb files of each individual chain and water/ions. Output files are **melt_ions.pdb**, **melt_water.pdb**, and **melt_chain{1...numchains}.pdb**.  This is necessary to use the VMD psfgen plugin.
 
 ## Instructions:
 
