@@ -47,6 +47,10 @@ If you use this tool, please cite the above paper.
 
 - **splitpdbforpsfgen-addsegID.py** - Splits the pdb file entitled 'chains_packed.pdb' into pdb files of each individual chain and water/ions. Output files are **melt_ions.pdb**, **melt_water.pdb**, and **melt_chain{1...numchains}.pdb**.  This is necessary to use the VMD psfgen plugin.
 
+- - **water.pdb** - PDB file for a water molecule with arbitrary coordinates assigned.
+
+- **submit.sh** - A bash script documenting the entire workflow to build simulations in _Graham et al., ACS Biomaterials Science and Engineering, 2023_.
+
 ## Instructions:
 
 1. Create a conda environment from **fga_fp5.yml** in a location of your choosing using instructions found in [conda documentation]
