@@ -33,7 +33,7 @@ writepsf ionized.psf
 # writepsf <psfgen_out>.psf
 
 # Generate PQR file
-mol delete all
+
 mol new ionized.psf
 mol addfile ionized_noTER.pdb
 animate write pqr ionized.pqr
